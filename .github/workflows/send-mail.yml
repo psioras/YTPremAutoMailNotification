@@ -2,8 +2,8 @@ name: Send Email
 
 on:
   schedule:
-    - cron: '0 12 8 * *'  # Runs at 09:00 UTC on the 1st of every month
-  workflow_dispatch:       # Allows manual trigger from GitHub UI (useful for testing)
+    - cron: '0 9 8 * *'  # Runs at 11:00 or 12:00 (depending on Greece summer/winter time zone) on the 8st of every month
+  workflow_dispatch:       # Allows manual trigger from GitHub UI.
 
 jobs:
   send-email:
