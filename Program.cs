@@ -5,9 +5,6 @@ using NLog.Extensions.Logging;
 
 DotNetEnv.Env.Load();
 
-Console.WriteLine($"USER: {Environment.GetEnvironmentVariable("SMTP_USER")}");
-Console.WriteLine($"PASS Length: {Environment.GetEnvironmentVariable("SMTP_PASS")?.Length}");
-
 var services = new ServiceCollection()
     .AddSingleton<EmailSettings>()
     .AddTransient<EmailService>()
