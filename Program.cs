@@ -15,14 +15,27 @@ var services = new ServiceCollection()
       logging.SetMinimumLevel(LogLevel.Debug);
     })
     .BuildServiceProvider();
+try
+{
 
-var emailService = services.GetRequiredService<EmailService>();
+  var emailService = services.GetRequiredService<EmailService>();
 
-await emailService.SendEmailAsync(
-    "YouTube Premium Payment Reminder",
-    """
+  await emailService.SendEmailAsync(
+      "YouTube Premium Payment Reminder",
+      """
     <p>Reminder for the monthly Youtube Premium Payment!</p>
     <p>I accept IRIS &amp; Revolut :)</p>
     <p>-psioras</p>
     """
-    );
+      );
+}
+catch (Exception ex)
+{
+  Console.WriteLine($"Error: {ex.Message}");
+  var topic = Environment.GetEnvironmentVariable("NTFY_TOPIC");
+  if (topic != null)
+  {
+    await NtfyService.SendNotificationAsync($"Failed to send email: {ex.Message}", topic);
+  }
+  Environment.Exit(1);
+}

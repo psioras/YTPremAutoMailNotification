@@ -16,7 +16,7 @@ public class EmailService
   public async Task SendEmailAsync(string subject, string htmlBody, CancellationToken stoppingToken = default)
   {
     var message = new MimeMessage();
-    message.From.Add(new MailboxAddress("Panagiotis Sioras", _settings.User));
+    message.From.Add(new MailboxAddress("psioras", _settings.User));
     message.Subject = subject;
 
     foreach (var recipient in _settings.Recipients)
